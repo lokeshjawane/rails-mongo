@@ -3,6 +3,7 @@ name: Ruby
 on: [push]
 
 jobs:
+
   build:
     runs-on: [self-hosted, Linux]
     steps:
