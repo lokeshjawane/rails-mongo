@@ -1,0 +1,35 @@
+name: Ruby
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: [self-hosted, Linux]
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        token: ${{ secrets.tokn }}
+    - name: Set up Ruby 2.6
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 2.3.x
+    - name: install pip and ansible
+      run: |
+        sudo pip install ansible
+    - name: Build and test with Rake
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libmysqlclient-dev libgmp3-dev
+        gem install bundler
+        bundle install --jobs 4 --retry 3
+        rm -f hosts
+  my_first_job:
+    runs-on: [self-hosted, Linux]
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        repository: 'git@github.com:ansible/test-playbooks.git'
+        token: ${{ secrets.tokn }}
+    - name: deploy an app
+      run: |
+        ansible-playbook -i hosts deployer/site.yml
