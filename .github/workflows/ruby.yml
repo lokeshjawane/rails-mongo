@@ -7,30 +7,8 @@ jobs:
   build:
     runs-on: [self-hosted, Linux]
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@master
+    - uses: actions/setup-ruby@v1
       with:
-        token: ${{ secrets.tokn }}
-    - name: Set up Ruby 2.6
-      uses: actions/setup-ruby@v1
-      with:
-        ruby-version: 2.6.3
-    - name: install pip and ansible
-      run: |
-        sudo pip install ansible
-    - name: Build and test with Rake
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y libmysqlclient-dev libgmp3-dev
-        gem install bundler
-        bundle install --jobs 4 --retry 3
-        rm -f hosts
-  my_first_job:
-    runs-on: [self-hosted, Linux]
-    steps:
-    - uses: actions/checkout@v1
-      with:
-        repository: 'git@github.com:ansible/test-playbooks.git'
-        token: ${{ secrets.tokn }}
-    - name: deploy an app
-      run: |
-        ansible-playbook -i hosts deployer/site.yml
+        ruby-version: '2.x' # Version range or exact version of a Ruby version to use, using semvers version range syntax.
+    - run: ruby hello.rb
