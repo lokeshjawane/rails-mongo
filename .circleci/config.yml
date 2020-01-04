@@ -20,7 +20,7 @@ jobs:
     working_directory: ~/circleci-demo-workflows
     branches:
       only:
-      - lokesh
+        - lokesh
     steps:
       - restore_cache:
           key: v1-repo-{{ .Environment.CIRCLE_SHA1 }}
