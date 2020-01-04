@@ -32,12 +32,3 @@ jobs:
           key: v1-bundle-{{ checksum "Gemfile.lock" }}
           paths:
             - ~/circleci-demo-workflows/vendor/bundle
-
-workflows:
-  version: 2
-  build-and-deploy:
-    jobs:
-      - checkout_code
-      - bundle_dependencies:
-          requires:
-            - checkout_code
