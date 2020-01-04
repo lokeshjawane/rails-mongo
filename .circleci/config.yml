@@ -18,6 +18,9 @@ jobs:
       - image: ruby:2.5
       - image: postgres:9.4.25-alpine
     working_directory: ~/circleci-demo-workflows
+    branches:
+      only:
+      - lokesh
     steps:
       - restore_cache:
           key: v1-repo-{{ .Environment.CIRCLE_SHA1 }}
