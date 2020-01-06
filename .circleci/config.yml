@@ -34,6 +34,8 @@ jobs:
       - image: ruby:2.5
       - image: postgres:9.4.25-alpine
     working_directory: ~/circleci-demo-workflows
+    steps:
+      - run: echo "hello"
 
 workflows:
   version: 2
