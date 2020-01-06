@@ -1,4 +1,4 @@
-version: 2.0
+version: 2.1
 
 jobs:
   checkout_code:
@@ -36,6 +36,13 @@ jobs:
     working_directory: ~/circleci-demo-workflows
     steps:
       - run: echo "hello"
+  bundle_dependencies2:
+    docker:
+      - image: ruby:2.5
+      - image: postgres:9.4.25-alpine
+    working_directory: ~/circleci-demo-workflows
+    steps:
+      - run: echo "hello"
 
 workflows:
   version: 2
@@ -49,3 +56,8 @@ workflows:
     - bundle_dependencies1:
         requires:
          - checkout_code
+    - bundle_dependencies2:
+        requires:
+         - checkout_code
+         - bundle_dependencies1
+         - bundle_dependencies
