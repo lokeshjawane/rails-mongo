@@ -35,5 +35,6 @@ workflows:
     jobs:
     - checkout_code
     - bundle_dependencies:
+        type: approval
         requires:
          - checkout_code
