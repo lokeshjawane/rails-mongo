@@ -1,0 +1,25 @@
+version: 0.2 
+
+phases: 
+  install:
+    runtime-versions:
+        ruby: 2.5
+    commands:
+      - cho "hello"
+  pre_build:
+    commands:
+    - echo Logging in to Amazon ECR....
+    - echo "installing aws-sdk-ecr"
+    - gem install 'aws-sdk-ecr'
+    - echo "Creating folders for pid files"
+    - mkdir shared
+    - mkdir shared/pids
+    - mkdir shared/sockets
+  build: 
+    commands: 
+    - echo Build started on `date`
+    - bundle install --path shared/.bundle
+
+  post_build: 
+    commands: 
+    - echo Build completed on `date` 
