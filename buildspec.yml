@@ -3,7 +3,7 @@ version: 0.2
 phases: 
   install:
     runtime-versions:
-        ruby: 2.5
+        docker: 18
     commands:
       - echo "hello"
   pre_build:
@@ -18,9 +18,7 @@ phases:
   build: 
     commands: 
     - echo Build started on `date`
-    - gem uninstall bundler -v '2.0.1'
-    - gem install bundler -v '1.17.0'
-    - bundle install --path shared/.bundle
+    - docker run -it --name rubyapp -v ${PWD}:/mnt drecom/docker-ubuntu-ruby:2.3.7 /bin/ls /mnt
 
   post_build: 
     commands: 
