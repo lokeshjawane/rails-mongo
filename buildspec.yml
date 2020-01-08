@@ -19,6 +19,7 @@ phases:
     commands: 
     - echo Build started on `date`
     - gem uninstall bundler -v '2.0.1'
+    - gem install bundler -v '1.17.0'
     - bundle install --path shared/.bundle
 
   post_build: 
