@@ -18,7 +18,7 @@ phases:
   build:
     commands:
     - echo Build started on `date`
-    - docker run -it --name rubyapp -v `pwd`:/mnt drecom/docker-ubuntu-ruby:2.3.7 /bin/ls /mnt
+    - docker run -it -e REDIS_URL='redis://test-redis.pjfegb.ng.0001.use1.cache.amazonaws.com:6379/1' -e RACK_ENV=development --name rubyapp -v `pwd`:/mnt ubuntu-ruby:2.1.0 /bin/bash /mnt/script.sh
 
   post_build:
     commands:
