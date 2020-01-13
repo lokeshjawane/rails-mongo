@@ -20,7 +20,15 @@ phases:
   build:
     commands:
     - echo Build started on `date`
-    - docker run  -e REDIS_URL='redis://test-redis.pjfegb.ng.0001.use1.cache.amazonaws.com:6379/1' -e RACK_ENV=development --name rubyapp -v `pwd`:/mnt lokeshjawane/ubuntu-ruby:2.1.0 /bin/bash /mnt/script.sh
+    - ex=$( cd "$(dirname "$0")" ; pwd -P )
+    - cd  $ex
+    - export PATH="$HOME/.rbenv/bin:$PATH"
+    - eval "$(rbenv init -)"
+    - echo $PATH
+    - gem install bundler -v  '1.17.3'
+    - bundle install
+#bundle exec rake db:migrate
+      #    - docker run  -e REDIS_URL='redis://test-redis.pjfegb.ng.0001.use1.cache.amazonaws.com:6379/1' -e RACK_ENV=development --name rubyapp -v `pwd`:/mnt lokeshjawane/ubuntu-ruby:2.1.0 /bin/bash /mnt/script.sh
   post_build:
     commands:
     - echo Build completed on `date`
