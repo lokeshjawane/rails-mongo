@@ -20,7 +20,7 @@ phases:
     - echo Build started on `date`
     - ex=$( cd "$(dirname "$0")" ; pwd -P )
     - cd  $ex
-    - export PATH="$HOME/.rbenv/bin:$PATH"
+    - export PATH="/home/appuser/.rbenv/bin:$PATH"
     - eval "$(rbenv init -)"
     - echo $PATH
     - gem install bundler -v  '1.17.3'
