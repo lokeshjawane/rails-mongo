@@ -8,29 +8,19 @@ phases:
         docker: 18
     commands:
       - echo "hello"
+      - curl -L "https://github.com/docker/compose/releases/download/1.25.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+      - chmod +x /usr/local/bin/docker-compose
   pre_build:
     commands:
     - echo Logging in to Amazon ECR....
-    - echo "installing aws-sdk-ecr"
-    - gem install 'aws-sdk-ecr'
-    - echo "Creating folders for pid files"
-    - mkdir shared
-    - mkdir shared/pids
-    - mkdir shared/sockets
-    - apt-get install awscli zip -y
   build:
     commands:
     - echo Build started on `date`
     - echo $PATH
-    - apt-get install tzdata jq
-    - sudo curl -L https://github.com/docker/compose/releases/download/1.18.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose
-    - docker-compose up -d
-    - export DATABASE_HOST=`sudo docker inspect appname_postgres_1 | jq .[].NetworkSettings.Networks.appname_default.IPAddress` 
-    - gem install bundler -v  '1.17.3'
-    - bundle install
-    - bundle exec rake db:migrate
-    - zip -r /tmp/rails-app.zip . -x '*.git*'
-    - aws s3 cp /tmp/rails-app.zip s3://test-rails-cc-lokesh/ 
+      #    - curl -L https://github.com/docker/compose/releases/download/1.18.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose
+    - /usr/local/bin/docker-compose up -d
+    - /usr/local/bin/docker-compose exec -T  web '/mnt/rake_test.sh' 
+      #    - aws s3 cp /tmp/rails-app.zip s3://test-rails-cc-lokesh/ 
       #    - docker run  -e REDIS_URL='redis://test-redis.pjfegb.ng.0001.use1.cache.amazonaws.com:6379/1' -e RACK_ENV=development --name rubyapp -v `pwd`:/mnt lokeshjawane/ubuntu-ruby:2.1.0 /bin/bash /mnt/script.sh
   post_build:
     commands:

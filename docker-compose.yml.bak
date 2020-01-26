@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+  redis:
+    container_name: redis
+    image: redis
+  postgres:
+    image: postgres
+    container_name: postgresdb
+    environment:
+            - POSTGRES_PASSWORD=machine
+            - POSTGRES_USER=machine
+  web:
+    container_name: web
+    image: lokeshjawane/ubuntu-ruby:2.6.1
+    volumes:
+    - .:/mnt
+    environment:
+      DATABASE_HOST: postgresdb

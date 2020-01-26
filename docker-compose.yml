@@ -1,10 +1,21 @@
 version: '2'
 
 services:
-  redis:
-    image: redis
   postgres:
+    container_name: pgdb
     image: postgres
     environment:
-            - POSTGRES_PASSWORD=machine
-            - POSTGRES_USER=machine
+            POSTGRES_PASSWORD: "machine"
+            POSTGRES_USER: "machine"
+  web:
+    image: lokeshjawane/ubuntu-ruby:2.6.1
+    container_name: webapp
+    volumes:
+    - .:/mnt
+    environment:
+      DATABASE_HOST: "postgres"
+      RAILS_ENV: "development"
+    entrypoint:
+    - tail
+    - -f
+    - /var/log/dmesg
