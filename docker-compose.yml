@@ -1,0 +1,10 @@
+version: '2'
+
+services:
+  redis:
+    image: redis
+  postgres:
+    image: postgres
+    environment:
+            - POSTGRES_PASSWORD=machine
+            - POSTGRES_USER=machine
