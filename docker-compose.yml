@@ -9,6 +9,7 @@ services:
             POSTGRES_USER: "machine"
   web:
     image: lokeshjawane/ubuntu-ruby:2.6.1
+    build: .
     container_name: webapp
     environment:
       DATABASE_HOST: "postgres"
