@@ -10,8 +10,6 @@ services:
   web:
     image: lokeshjawane/ubuntu-ruby:2.6.1
     container_name: webapp
-    volumes:
-    - .:/mnt
     environment:
       DATABASE_HOST: "postgres"
       RAILS_ENV: "development"
