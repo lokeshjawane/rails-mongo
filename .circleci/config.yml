@@ -29,7 +29,9 @@ jobs:
             docker-compose up -d
       - run:
           name: Run rake test
-          command: /usr/local/bin/docker-compose exec -T  web '/mnt/rake_test.sh'
+          command: |
+            ls -l /mnt
+            /usr/local/bin/docker-compose exec -T  web '/mnt/rake_test.sh'
             
 
 workflows:
