@@ -7,7 +7,6 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-      - aws-cli/setup
       - run:
           name: Install Docker client
           command: |
@@ -37,6 +36,7 @@ jobs:
       - run:
           name: upload artifact to s3
           command: |
+           apt-get update && apt-get install awscli -y
            docker cp webapp:/tmp/app-test.zip /tmp/app-test.zip
            aws s3 cp /tmp/app-test.zip s3://elasticbeanstalk-us-east-1-630291772625/
            rm -f /tmp/app-test.zip
