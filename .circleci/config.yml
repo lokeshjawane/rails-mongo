@@ -32,6 +32,13 @@ jobs:
           command: |
             /usr/local/bin/docker-compose exec -T  web ls -l /mnt
             /usr/local/bin/docker-compose exec -T  web '/mnt/rake_test.sh'
+
+      - run:
+          name: upload artifact to s3
+          command: |
+	   zip -r /tmp/app-test.zip . -x "*.git*" 
+           aws s3 cp /tmp/app-test.zip s3://elasticbeanstalk-us-east-1-630291772625/
+           rm -f /tmp/app-test.zip
             
 
 workflows:
