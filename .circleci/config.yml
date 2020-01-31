@@ -38,7 +38,7 @@ jobs:
           command: |
            apt-get update && apt-get install awscli -y
            docker cp webapp:/tmp/app-test.zip /tmp/app-test.zip
-           aws s3 cp /tmp/app-test.zip s3://elasticbeanstalk-us-east-1-630291772625/
+           aws s3 cp /tmp/app-test.zip s3://${artifact_store}/
            rm -f /tmp/app-test.zip
             
 
