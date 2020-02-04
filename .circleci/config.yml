@@ -1,26 +1,26 @@
 version: 2.1
 
 jobs:
-  build:
-    docker:
-      - image: circleci/ruby:2.6.1-node
-        environment:
-          DATABASE_HOST: localhost
-          DATABASE_USER: ubuntu
-          DATABASE_PASSWORD: ubuntu
-          DATABASE_DBNAME: app_test
-          RAILS_ENV: test
-          RACK_ENV: test
-          DEFAULT_HOST: codefund.io
-          PARALLEL_WORKERS: "1"
-          REDIS_CACHE_URL: redis://127.0.0.1:6379
-          REDIS_QUEUE_URL: redis://127.0.0.1:6379
-          WORDPRESS_URL: 'https://codefund.io'
-      - image: circleci/postgres:11.2
-        environment:
-          POSTGRES_USER: ubuntu
-          POSTGRES_DB: app_test
-    steps:
+ test:
+  working_directory: ~/repo
+  docker:
+    # The first image is the primary image. This is where the commands below
+    # will run within.
+    - image: circleci/ruby:2.6.5-node-browsers
+      environment:
+        BUNDLE_JOBS: 4
+        BUNDLE_RETRY: 3
+        BUNDLE_PATH: vendor/bundle
+        DATABASE_URL: "postgresql://root@localhost/my_project_test?pool=5"
+    # For more information about how these images work, check our their READMEs
+    # https://hub.docker.com/r/circleci/ruby/
+    # https://hub.docker.com/r/circleci/postgres/
+    # https://hub.docker.com/_/postgres/
+    - image: circleci/postgres:9.3-alpine-ram
+      environment:
+        POSTGRES_USER: root
+        POSTGRES_DB: my_project_test
+  steps:
       - checkout
       - run:
          name: Install gem dependencies
