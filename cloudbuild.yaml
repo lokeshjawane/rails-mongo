@@ -10,6 +10,7 @@ steps:
     git config -f .gitmodules submodule.blog.url https://github.com/lokeshjawane/blog.git
     git submodule init
     git submodule update
+    ls -la
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-t', 'gcr.io/rsaf-puvss/testing', '.']
 
